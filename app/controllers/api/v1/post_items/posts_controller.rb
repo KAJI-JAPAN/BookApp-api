@@ -17,7 +17,7 @@ class Api::V1::PostItems::PostsController < ApplicationController
 		posts_all = PostItem.all
 		posts = PostItem.find(params[:id])
 		# if posts.status
-		posts.update(id: post_params[:id], content: post_params[:content], status: false)
+		posts.update(id: post_params[:id], content: post_params[:content], status: false, post_id: post_prams[:post_id])
 		render json: posts_all
 		# else
 		# 	render json: '編集できません'
@@ -33,6 +33,6 @@ class Api::V1::PostItems::PostsController < ApplicationController
 
 		private
 			def post_params
-				params.require(:post_items).permit(:id, :content, :status)
+				params.require(:post_items).permit(:id, :content, :status, :post_id)
 			end
 end
