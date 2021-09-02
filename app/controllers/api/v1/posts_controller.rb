@@ -19,6 +19,14 @@ class Api::V1::PostsController < ApplicationController
 		render json: {"post": post, "content": content}, status: 200
  	end
 
+	 
+
+	 def destroy
+		post = Post.find(params[:id])
+		post.destroy
+		render json: {}, status: "OK"
+	 end
+
 		private
 		 def post_params
 			params.require(:post).permit(:title, :author, :image, post_items_attributes: [:id, :content, :status])
