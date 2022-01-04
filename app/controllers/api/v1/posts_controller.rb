@@ -1,34 +1,56 @@
 class Api::V1::PostsController < ApplicationController
-	def index
-		posts = Post.all
-		render json: posts
-	end
+  def index
+    posts = Post.all
+    render json: posts
+  end
 
-	def create
-		posts = Post.new(post_params)
-		if posts.save
-			render json: 'OK', status: 200
-		else
-			render json: 'EEEOR', status: 500
-		end
-	end
+  def create
+    posts = Post.new(create_params)
+    if posts.save
+      render json: 201, status: :created
+    else
+      render json: 500,	status: :internal_server_error
+    end
+  end
 
-	def show
-		post = Post.find(params[:id])
-		content = post.post_items
-		render json: {"post": post, "content": content}, status: 200
- 	end
+  def show
+    content = post.post_items
+    render json: {"post": post, "content": content}, status: :ok
+   end
+   
+   def update
+    # post_items = PostItem.find(post_item_params[:id])
+    if post.update(update_params)
+      render json: "OK"
+    else
+      render json: "ERROR"
+    end
+   end
+   
 
-	 
+   def destroy
+    if	post.destroy
+     render json: {}, status: :ok
+    else
+     render json: {}, status: :internal_server_error
+    end
+   end
 
-	 def destroy
-		post = Post.find(params[:id])
-		post.destroy
-		render json: {}, status: "OK"
-	 end
+    private
+      def post 
+        @post ||= Post.find(params[:id])
+      end 
 
-		private
-		 def post_params
-			params.require(:post).permit(:title, :author, :image, post_items_attributes: [:id, :content, :status])
-		 end
+      def post_item_params
+        [:id, :content, :status, :post_id]
+      end
+
+
+      def update_params
+        params.require(:post).permit(post_items_attributes: post_item_params)
+      end
+
+      def create_params
+        params.require(:post).permit(:title, :author, :image, post_items_attributes:  post_item_params)
+      end
 end
