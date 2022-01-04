@@ -1,4 +1,5 @@
 class Api::V1::PostsController < ApplicationController
+
   def index
     posts = Post.all
     render json: posts
@@ -16,25 +17,27 @@ class Api::V1::PostsController < ApplicationController
   def show
     content = post.post_items
     render json: {"post": post, "content": content}, status: :ok
-   end
+  end
    
-   def update
-    # post_items = PostItem.find(post_item_params[:id])
+  def update
+    # 全てのデータを削除して新しいデータを入れる
+     post_items = PostItem.where(post_id: params[:id])
+     post_items.destroy_all
     if post.update(update_params)
       render json: "OK"
     else
       render json: "ERROR"
     end
-   end
+  end
    
 
-   def destroy
-    if	post.destroy
-     render json: {}, status: :ok
+  def destroy
+    if post.destroy
+      render json: {}, status: :ok
     else
-     render json: {}, status: :internal_server_error
+      render json: {}, status: :internal_server_error
     end
-   end
+  end
 
     private
       def post 
