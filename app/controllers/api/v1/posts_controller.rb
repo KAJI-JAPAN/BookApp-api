@@ -17,16 +17,6 @@ class Api::V1::PostsController < ApplicationController
     content = post.post_items
     render json: {"post": post, "content": content}, status: :ok
    end
-   
-   def update
-    # post_items = PostItem.find(post_item_params[:id])
-    if post.update(update_params)
-      render json: "OK"
-    else
-      render json: "ERROR"
-    end
-   end
-   
 
    def destroy
     if	post.destroy
@@ -51,6 +41,6 @@ class Api::V1::PostsController < ApplicationController
       end
 
       def create_params
-        params.require(:post).permit(:title, :author, :image, post_items_attributes:  post_item_params)
+        params.require(:post).permit(:title, :author, :image, post_items_attributes: post_item_params)
       end
 end
