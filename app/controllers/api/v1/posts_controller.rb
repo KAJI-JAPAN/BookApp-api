@@ -17,6 +17,7 @@ class Api::V1::PostsController < ApplicationController
   def show
     content = post.post_items
     render json: {"post": post, "content": content}, status: :ok
+<<<<<<< HEAD
   end
    
   def update
@@ -30,6 +31,9 @@ class Api::V1::PostsController < ApplicationController
     end
   end
    
+=======
+   end
+>>>>>>> addtext_and_adddelete_create_controller
 
   def destroy
     if post.destroy
@@ -54,6 +58,6 @@ class Api::V1::PostsController < ApplicationController
       end
 
       def create_params
-        params.require(:post).permit(:title, :author, :image, post_items_attributes:  post_item_params)
+        params.require(:post).permit(:title, :author, :image, post_items_attributes: post_item_params)
       end
 end
