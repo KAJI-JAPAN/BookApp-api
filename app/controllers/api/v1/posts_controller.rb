@@ -17,23 +17,7 @@ class Api::V1::PostsController < ApplicationController
   def show
     content = post.post_items
     render json: {"post": post, "content": content}, status: :ok
-<<<<<<< HEAD
   end
-   
-  def update
-    # 全てのデータを削除して新しいデータを入れる
-     post_items = PostItem.where(post_id: params[:id])
-     post_items.destroy_all
-    if post.update(update_params)
-      render json: "OK"
-    else
-      render json: "ERROR"
-    end
-  end
-   
-=======
-   end
->>>>>>> addtext_and_adddelete_create_controller
 
   def destroy
     if post.destroy
