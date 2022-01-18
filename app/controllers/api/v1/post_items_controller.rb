@@ -4,28 +4,24 @@ class Api::V1::PostItemsController < ApplicationController
     if PostItem.exists?(id: post_params[:id]) 
       post = PostItem.find(post_params[:id])
       if post.update(post_params)
-        render json: {}, status: "edit_ok"
+        render json: post, status: 200
       else
-        render json: {}, status: "edit_error"
+        render json: post, status: 400
       end
     else
       post = PostItem.new(post_params) 
       if post.save
-        render json: {}, status: "create_ok"
+        render json: post, status: 200
       else
-        render json: {}, status: "create_error"
+        render json: post, status: 400
       end
     end
   end
 
   def destroy
     post = PostItem.find(params[:id])
-
-    if post.destroy
-      render json: {}, status: "ok"
-    else
-      render json: {}, status: "error"
-    end
+    post.destroy!
+    render json: { status: 'SUCCESS', message: 'Deleted the post', data: @post }
   end
 
   private

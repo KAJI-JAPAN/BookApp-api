@@ -2,7 +2,7 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     posts = Post.all
-    render json: posts
+    render json: posts, status: :ok
   end
 
   def create
@@ -34,11 +34,6 @@ class Api::V1::PostsController < ApplicationController
 
       def post_item_params
         [:id, :content, :status, :post_id]
-      end
-
-
-      def update_params
-        params.require(:post).permit(post_items_attributes: post_item_params)
       end
 
       def create_params
