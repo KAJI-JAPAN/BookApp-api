@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :posts
       resources :post_items
-      end
-   end
+      resources :schedules
+    end
+  end
 end
