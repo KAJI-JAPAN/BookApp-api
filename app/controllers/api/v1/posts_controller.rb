@@ -8,9 +8,9 @@ class Api::V1::PostsController < ApplicationController
   def create
     posts = Post.new(create_params)
     if posts.save
-      render json: 201, status: :created
+      render json: {}, status: :created
     else
-      render json: 500,	status: :internal_server_error
+      render json: {},	status: :internal_server_error
     end
   end
 

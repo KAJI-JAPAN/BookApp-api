@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_19_033920) do
+ActiveRecord::Schema.define(version: 2022_03_16_090508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,11 @@ ActiveRecord::Schema.define(version: 2022_02_19_033920) do
   create_table "schedules", force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.string "start"
-    t.string "end"
+    t.bigint "start"
+    t.bigint "end"
+    t.boolean "timed"
+    t.boolean "long_time"
+    t.integer "postItem_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

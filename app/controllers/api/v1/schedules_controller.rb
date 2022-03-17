@@ -1,30 +1,27 @@
 class Api::V1::SchedulesController < ApplicationController
 
   def index
-    @schedules = Schedule.all
-    render :index, status: :ok
+    schedules = Schedule.all
+    render json: schedules, status: :ok
   end
 
-  def update
-    if Schedule.exists?(id: schedule_params[:id])
-      schedule = Schedule.find(schedule_params[:id])
-      if schedule.update(schedule_params)
-        render json: schedule, status: :created
-      else
-        render json: schedule, status: :bad_request
-      end
+  def create
+    schedule = Schedule.new(post_params)
+    if schedule.save
+      render json: schedule,  status: :created
     else
-      schedule = PostItem.new(schedule_params) 
-      if schedule.save
-        render json: post, status: :created
-      else
-        render json: post, status: :bad_request
-      end
+      render json: schedule, status: :internal_server_error
     end
   end
 
+  def update
+    schedule = Schedule.find(params[:id])
+    schedule.update(post_params)
+    render json: schedule, status: :ok
+  end
+
   def destroy
-    schedule = Schedule.find(schedule_params[:id])
+    schedule = Schedule.find(params[:id])
     schedule.destroy!
     render json: { status: :ok, message: 'Deleted', data: schedule }
   end
@@ -32,7 +29,7 @@ class Api::V1::SchedulesController < ApplicationController
 
   private
 
-    def schedule_params
-      params.require(:post).permit(:id, :start, :end, :color)
+    def post_params
+      params.require(:post).permit(:id, :name, :start, :end, :color, :timed, :long_time)
     end
 end

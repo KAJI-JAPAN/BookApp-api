@@ -3,8 +3,11 @@ class CreateSchedules < ActiveRecord::Migration[6.0]
     create_table :schedules do |t|
       t.string :name
       t.string :color
-      t.string :start
-      t.string :end
+      t.bigint :start
+      t.bigint :end
+      t.boolean :timed
+      t.boolean :long_time
+      t.integer :postItem_id
 
       t.timestamps
     end
