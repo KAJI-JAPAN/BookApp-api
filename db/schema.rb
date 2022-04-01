@@ -41,7 +41,9 @@ ActiveRecord::Schema.define(version: 2022_03_16_090508) do
     t.bigint "end"
     t.boolean "timed"
     t.boolean "long_time"
-    t.integer "postItem_id"
+    t.integer "post_item_id"
+    t.integer "post_id"
+    t.integer "long_term_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

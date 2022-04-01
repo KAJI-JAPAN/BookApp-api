@@ -7,7 +7,9 @@ class CreateSchedules < ActiveRecord::Migration[6.0]
       t.bigint :end
       t.boolean :timed
       t.boolean :long_time
-      t.integer :postItem_id
+      t.integer :post_item_id
+      t.integer :post_id
+      t.integer :long_term_id
 
       t.timestamps
     end
