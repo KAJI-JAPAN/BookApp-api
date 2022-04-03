@@ -21,7 +21,7 @@ class Api::V1::PostItemsController < ApplicationController
   def destroy
     post = PostItem.find(params[:id])
     post.destroy!
-    render json: { status: :ok, message: 'Deleted', data: post }
+    render json: { status: :no_content, message: 'Deleted', data: post }
   end
 
   private

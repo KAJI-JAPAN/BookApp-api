@@ -6,7 +6,7 @@ class Schedule < ApplicationRecord
 
   def self.create_schedule(params, array)
     # 送られてきた複数のイベントを保存
-    index = Schedule.order(updated_at: :desc).limit(1).ids.sum(1)
+    index = Schedule.order(created_at: :desc).limit(1).ids.sum(1)
     Schedule.transaction do
       params.each do |data|
         schedule = Schedule.new(data)

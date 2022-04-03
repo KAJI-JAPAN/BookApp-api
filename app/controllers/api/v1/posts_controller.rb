@@ -21,7 +21,7 @@ class Api::V1::PostsController < ApplicationController
 
   def destroy
     if post.destroy
-      render json: {}, status: :ok
+      render json: {}, status: :no_content
     else
       render json: {}, status: :internal_server_error
     end

@@ -6,12 +6,8 @@ Rails.application.routes.draw do
       resources :post_items
 
       resources :schedules do
-        collection do
-          post :create_many_schedule
-        end
-        member do
-          post :delete_many_schedule
-        end
+        post :create_many_schedule, on: :collection
+        post :delete_many_schedule, on: :member
       end
 
     end

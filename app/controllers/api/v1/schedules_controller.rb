@@ -13,15 +13,6 @@ class Api::V1::SchedulesController < ApplicationController
       else
         render json: schedule, status: :internal_server_error
     end
-
-    # まとめて登録用
-    # schedule_array = []
-    # begin
-    #   Schedule.create_schedule(post_params[:post], schedule_array)
-    #   render  json: schedule_array, status: :created
-    # rescue => e
-    #   render e
-    # end
   end
 
   def update
@@ -38,21 +29,28 @@ class Api::V1::SchedulesController < ApplicationController
   
   def destroy
     schedule.destroy!
-    render json: { status: :ok, message: 'Deleted', data: schedule }
+    render json: { status: :no_content, message: 'Deleted', data: schedule }
   end
   
       # まとめて登録用
     def create_many_schedule
       schedule_array = []
       begin
-        Schedule.create_schedule(post_params[:post], schedule_array)
+        Schedule.create_schedule(schedule_params[:post], schedule_array)
         render  json: schedule_array, status: :created
       rescue => e
         render e
       end
     end
   
+    # まとめて削除用
     def delete_many_schedule
+      params= schedule.long_term_id
+      if Schedule.where(long_term_id: params).destroy_all
+        render json: {}, status: :no_content
+      else
+        render json: schedule, status: :internal_server_error
+      end
     end
   
 
@@ -62,9 +60,11 @@ class Api::V1::SchedulesController < ApplicationController
       @schedule ||= Schedule.find(params[:id])
     end
 
-    def post_params
-      # params.require(:post).permit(:id, :name, :start, :end, :color, :timed, :long_time, :post_id, :post_item_id)
-      # まとめて登録用
+    def schedule_params
       params.permit(post: [:id, :name, :start, :end, :color, :timed, :long_time, :post_id, :post_item_id, :long_term_id])
+    end
+
+    def post_params
+      params.require(:post).permit(:id, :name, :start, :end, :color, :timed, :long_time, :post_id, :post_item_id)
     end
 end
