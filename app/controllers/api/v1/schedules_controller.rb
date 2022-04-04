@@ -32,7 +32,7 @@ class Api::V1::SchedulesController < ApplicationController
     render json: { status: :no_content, message: 'Deleted', data: schedule }
   end
   
-      # まとめて登録用
+    # まとめて登録用
     def create_many_schedule
       schedule_array = []
       begin
@@ -61,10 +61,10 @@ class Api::V1::SchedulesController < ApplicationController
     end
 
     def schedule_params
-      params.permit(post: [:id, :name, :start, :end, :color, :timed, :long_time, :post_id, :post_item_id, :long_term_id])
+      params.permit(post: [:id, :name, :start, :end, :color, :timed, :long_time, :post_id, :long_term_id])
     end
 
     def post_params
-      params.require(:post).permit(:id, :name, :start, :end, :color, :timed, :long_time, :post_id, :post_item_id)
+      params.require(:post).permit(:id, :name, :start, :end, :color, :timed, :long_time, :post_id)
     end
 end
