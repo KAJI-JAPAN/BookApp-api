@@ -10,7 +10,7 @@ class Schedule < ApplicationRecord
     Schedule.transaction do
       params.each do |data|
         schedule = Schedule.new(data)
-        schedule[:long_term_id] = index 
+        # schedule[:long_term_id] = index 
         schedule.save!
         array.push(schedule)
       end

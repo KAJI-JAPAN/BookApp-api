@@ -26,6 +26,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 
 gem 'active_model_serializers'
+
+# JWT Doc: https://github.com/jwt/ruby-jwt
+gem 'jwt', '~> 2.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
