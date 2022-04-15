@@ -17,6 +17,11 @@ module UserAuth
       end
     end
 
+    # subjectからユーザーを検索する
+    def entity_for_user
+      User.find @payload["sub"]
+    end
+
     private
 
     # エンコードキー(config/initializers/user_auth.rb)
@@ -71,6 +76,12 @@ module UserAuth
       # Doc: https://openid-foundation-japan.github.io/draft-ietf-oauth-json-web-token-11.ja.html#typHdrDef
       def header_fields
         { typ: "JWT" }
+      end
+
+      # トークンのユーザーを返す
+      def current_user
+        return if token.blank?
+        @_current_user ||= fetch_entity_from_token
       end
   end
 end
