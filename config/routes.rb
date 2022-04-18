@@ -7,10 +7,9 @@ Rails.application.routes.draw do
         registrations: 'api/v1/auth/registrations'
       }
 
-      namespace :auth do
-        resources :sessions, only: [:index]
-      end
-
+      # namespace :auth do
+      #   resources :sessions, only: [:index]
+      # end
       resources :schedules do
         post :create_many_schedule, on: :collection
         post :delete_many_schedule, on: :member
