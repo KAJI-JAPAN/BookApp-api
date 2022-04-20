@@ -1,4 +1,5 @@
 class Schedule < ApplicationRecord
+  belongs_to :user
   belongs_to :post_item, optional: true
   belongs_to :post, optional: true
   validates :start, presence: true
