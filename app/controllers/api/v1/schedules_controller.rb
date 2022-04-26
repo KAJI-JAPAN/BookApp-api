@@ -1,13 +1,15 @@
 class Api::V1::SchedulesController < ApplicationController
-
+  before_action :authenticate_api_v1_user!
   def index
-    schedules = Schedule.all
+    # schedules = Schedule.all
+    schedules = current_api_v1_user.schedules
     render json: schedules, status: :ok
 
   end
 
   def create
       schedule = Schedule.new(post_params)
+      schedule.user_id = current_api_v1_user.id
       if schedule.save
         render json: schedule,  status: :created
       else
@@ -36,7 +38,7 @@ class Api::V1::SchedulesController < ApplicationController
     def create_many_schedule
       schedule_array = []
       begin
-        Schedule.create_schedule(schedule_params[:post], schedule_array)
+        Schedule.create_schedule(schedule_params[:post], schedule_array, current_api_v1_user.id)
         render  json: schedule_array, status: :created
       rescue => e
         render e

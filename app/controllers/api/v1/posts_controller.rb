@@ -1,16 +1,19 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :authenticate_api_v1_user!
 
   def index
-    posts = Post.all
+    posts = current_api_v1_user.posts.order(created_at: :desc)
     render json: posts, status: :ok
   end
 
   def create
+    # posts = Post.new(create_params)
     posts = Post.new(create_params)
+    posts.user_id = current_api_v1_user.id
     if posts.save
       render json: {}, status: :created
     else
-      render json: {},	status: :internal_server_error
+      render json: {}, status: :internal_server_error
     end
   end
 

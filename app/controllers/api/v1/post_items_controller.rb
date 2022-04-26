@@ -1,4 +1,5 @@
 class Api::V1::PostItemsController < ApplicationController
+  before_action :authenticate_api_v1_user!
   # post_itemsのIDが存在する場合はupdate、存在しない場合は新規で追加、更に保存できた場合とできなかった場合でif文追加
   def update
     if PostItem.exists?(id: post_params[:id]) 
