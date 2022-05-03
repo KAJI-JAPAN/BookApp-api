@@ -9,5 +9,8 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   # ゲストログイン用
-
+  def self.guest_reset
+    # User.where(guest: :true).destroy_all
+    puts "テスト"
+  end
 end
