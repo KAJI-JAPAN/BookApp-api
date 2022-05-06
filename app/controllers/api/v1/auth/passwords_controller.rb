@@ -17,6 +17,6 @@ class Api::V1::Auth::PasswordsController < ApplicationController
     end
 
     def update_params
-      params.require(:user).permit(:password, :password_confirmation)
+      params.require(:user).permit(:password, :password_confirmation, :reset_password_token)
     end
 end

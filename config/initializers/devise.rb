@@ -310,11 +310,4 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
   # config.mailer = 'DeviseMyMailer'
   config.scoped_views = true
-
-  def template_paths
-    template_path = _prefixes.dup
-    template_path.unshift "#{@devise_mapping.scoped_path}/mailer" if self.class.scoped_views?
-    template_path.unshift "#{@devise_mapping.scoped_path}/mailer/#{I18n.default_locale}" if self.class.scoped_views?
-    template_path
-  end
 end
