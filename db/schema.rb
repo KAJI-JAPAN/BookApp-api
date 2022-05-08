@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_020754) do
+ActiveRecord::Schema.define(version: 2022_03_16_090508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 2022_04_29_020754) do
   create_table "post_items", force: :cascade do |t|
     t.string "content"
     t.bigint "post_id"
+    t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "status"
     t.index ["post_id"], name: "index_post_items_on_post_id"
   end
 
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 2022_04_29_020754) do
     t.boolean "long_time"
     t.integer "post_id"
     t.integer "long_term_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -69,10 +70,10 @@ ActiveRecord::Schema.define(version: 2022_04_29_020754) do
     t.string "nickname"
     t.string "image"
     t.string "email"
+    t.boolean "guest"
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "guest"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -80,4 +81,6 @@ ActiveRecord::Schema.define(version: 2022_04_29_020754) do
   end
 
   add_foreign_key "post_items", "posts"
+  add_foreign_key "posts", "users"
+  add_foreign_key "schedules", "users"
 end

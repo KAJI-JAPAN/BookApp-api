@@ -12,7 +12,6 @@ Rails.application.routes.default_url_options[:host] = ENV["API_DOMAIN"]
       end
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations'
-        # passwords: 'api/v1/auth/passwords'
       }
 
       resources :get_books do
