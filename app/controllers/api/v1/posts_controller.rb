@@ -7,7 +7,6 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    # posts = Post.new(create_params)
     posts = Post.new(create_params)
     posts.user_id = current_api_v1_user.id
     if posts.save

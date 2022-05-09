@@ -5,9 +5,9 @@ Rails.application.routes.default_url_options[:host] = ENV["API_DOMAIN"]
     namespace :v1 do
       resources :posts, except: [:update]
       resources :post_items, only: [:update, :destroy]
-      resources :guests, only: [:create, :update]
-
+      
       namespace :auth do
+        resources :guests, only: [:create, :update]
         resource :passwords, only: [:create, :update]
       end
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
